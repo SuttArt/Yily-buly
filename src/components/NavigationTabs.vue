@@ -1,14 +1,29 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
-defineProps({
+const props = defineProps({
   path_name: {
     type: Array,
     required: true
   }
 })
 
-let active_Tab = ref(0)
+let active_Tab = ref(null)
+
+const route = useRoute()
+
+// Update the selected Tab when the route.name changes
+watch(
+  () => route.name,
+  () => {
+    const existing_Tab_in_props = props.path_name.findIndex((item) => item.path === route.name)
+
+    if (existing_Tab_in_props !== -1) {
+      select_Tab(existing_Tab_in_props)
+    }
+  }
+)
 
 const select_Tab = (index) => {
   active_Tab.value = index
@@ -52,10 +67,10 @@ const select_Tab = (index) => {
 }
 
 .navigation-button:active {
-  transform: scale(0.98);
   /* Scaling button to 0.98 to its original size */
-  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+  transform: scale(0.98);
   /* Lowering the shadow */
+  box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
 }
 
 .navigation-button.active {
