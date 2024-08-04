@@ -9,7 +9,7 @@ body {
 #app {
   display: grid;
   grid-template-columns: 1fr 5fr 1fr;
-  grid-template-rows: 1fr 10fr;
+  grid-template-rows: 10vh 10fr;
   /*TODO: DELETE*/
   height: 100vh;
 }

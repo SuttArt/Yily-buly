@@ -17,11 +17,7 @@ const route = useRoute()
 watch(
   () => route.name,
   () => {
-    const existing_Tab_in_props = props.path_name.findIndex((item) => item.path === route.name)
-
-    if (existing_Tab_in_props !== -1) {
-      select_Tab(existing_Tab_in_props)
-    }
+    select_Tab(props.path_name.findIndex((item) => item.path === route.name))
   }
 )
 

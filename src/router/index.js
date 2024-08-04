@@ -6,7 +6,6 @@ import NotFound from '@/views/NotFound.vue'
 const myBook = () => import('@/views/BookView.vue')
 const search = () => import('@/views/SearchView.vue')
 const settings = () => import('@/views/SettingsView.vue')
-const recipeLayout = () => import('@/views/recipe/LayoutRecipeView.vue')
 const recipeDetails = () => import('@/views/recipe/DetailsRecipeView.vue')
 
 const router = createRouter({
@@ -43,7 +42,14 @@ const router = createRouter({
       name: 'NotFound',
       component: NotFound
     }
-  ]
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { top: 0 }
+    }
+  }
 })
 
 export default router

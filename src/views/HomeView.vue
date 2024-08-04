@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import { useRecipesStore } from '@/stores/recipes.js'
+import { useRecipesStore } from '@/stores/recipes-store.js'
 import RecipeCard from '@/components/RecipeCard.vue'
 
 const store = useRecipesStore()

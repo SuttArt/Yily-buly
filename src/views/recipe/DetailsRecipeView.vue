@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
-import { useRecipesStore } from '@/stores/recipes.js'
+import { useRecipesStore } from '@/stores/recipes-store.js'
 import { getRecipe } from '@/services/api-Recipe-Service.js'
 
 const props = defineProps({
