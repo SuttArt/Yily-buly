@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
-import { getRecipes } from '@/services/api-Service.js'
+import { getRecipes } from '@/services/api-Recipe-Service.js'
 
 export const useRecipesStore = defineStore('recipes', () => {
   // state

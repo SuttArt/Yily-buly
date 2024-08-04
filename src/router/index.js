@@ -6,6 +6,8 @@ import NotFound from '@/views/NotFound.vue'
 const myBook = () => import('@/views/BookView.vue')
 const search = () => import('@/views/SearchView.vue')
 const settings = () => import('@/views/SettingsView.vue')
+const recipeLayout = () => import('@/views/recipe/LayoutRecipeView.vue')
+const recipeDetails = () => import('@/views/recipe/DetailsRecipeView.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +31,12 @@ const router = createRouter({
       path: '/settings',
       name: 'settings',
       component: settings
+    },
+    {
+      path: '/recipe/:id',
+      name: 'recipeDetails',
+      props: true,
+      component: recipeDetails
     },
     {
       path: '/:catchAll(.*)',

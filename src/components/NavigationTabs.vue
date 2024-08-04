@@ -63,7 +63,7 @@ const select_Tab = (index) => {
   cursor: pointer;
 }
 .navigation-button:hover {
-  opacity: 0.7;
+  opacity: 0.85;
 }
 
 .navigation-button:active {
