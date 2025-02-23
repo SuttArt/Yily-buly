@@ -11,7 +11,7 @@ defineProps({
   <RouterLink class="recipe-link" :to="{ name: 'recipeDetails', params: { id: recipe.id } }">
     <div class="recipe-card">
       <span class="recipe-item">{{ recipe.name }}</span>
-      <span class="recipe-item">{{ recipe.instructions }}</span>
+      <span class="recipe-item">{{ recipe.description }}</span>
     </div>
   </RouterLink>
 </template>

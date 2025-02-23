@@ -48,11 +48,12 @@ onMounted(() => {
     <br />
     <span
       class="recipe-instructions"
-      v-for="instruction in recipe.instructions"
+      v-for="(instruction, index) in recipe.instructions"
       :key="instruction.index"
     >
-      {{ instruction }}</span
-    >
+      Крок {{ index + 1 }} <br />
+      {{ instruction }}<br /><br
+    /></span>
     <br /><br />
   </div>
   <div v-else>Recipe is not found...</div>

@@ -54,6 +54,7 @@ const select_Tab = (index) => {
   background-color: #ecc198;
   width: 15vw;
   min-width: fit-content;
+  white-space: nowrap;
   border: none;
   border-radius: 8px 8px 0 0;
   cursor: pointer;
