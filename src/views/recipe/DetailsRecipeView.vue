@@ -25,7 +25,7 @@ const fetch_recipe = async () => {
     recipe.value = await getRecipe(id.value)
     //TODO: add new recipe to local store
   } catch (err) {
-    store.fetch_error = err
+    store.fetch_error.value = err
   }
 }
 
