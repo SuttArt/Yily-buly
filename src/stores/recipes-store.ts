@@ -1,24 +1,22 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { getRecipes } from '@/services/api-Recipe-Service.js'
+import type { Recipe } from '@/types/Recipe.ts'
 
 export const useRecipesStore = defineStore('recipes', () => {
   // state
-  const recipes = ref([])
-  const fetch_error = ref(null)
+  const recipes = ref<Recipe[]>([]);
 
   // getters
-  const doubleCount = computed(() => 2 * 2)
 
   // actions
   async function fetchRecipes() {
     try {
-      const result = await getRecipes()
-      recipes.value = result
+      recipes.value = await getRecipes() as Recipe[]
     } catch (err) {
-      fetch_error.value = err
+      console.error(err)
     }
   }
 
-  return { recipes, fetch_error, doubleCount, fetchRecipes }
+  return { recipes, fetchRecipes }
 })

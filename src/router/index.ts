@@ -43,12 +43,15 @@ const router = createRouter({
       component: NotFound
     }
   ],
-  scrollBehavior(to, from, savedPosition) {
+
+  // Do not work after overflow-y: scroll; in .css
+  // TODO: Find a solution
+  scrollBehavior(_to, _from, savedPosition) {
     if (savedPosition) {
       return new Promise((resolve) => {
         setTimeout(() => {
           resolve(savedPosition)
-        }, 100)
+        }, 10)
       })
     } else {
       return { top: 0 }

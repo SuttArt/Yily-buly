@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from 'vue'
 import { useRecipesStore } from '@/stores/recipes-store.ts'
 import { getRecipe } from '@/services/api-Recipe-Service.ts'
+import type { Recipe } from '@/types/Recipe.ts'
 
 const props = defineProps({
   id: {
@@ -11,8 +12,7 @@ const props = defineProps({
 })
 
 const store = useRecipesStore()
-
-const recipe = ref(null)
+const recipe = ref<Recipe | undefined>(undefined)
 
 const id = computed(() => props.id)
 
@@ -25,7 +25,7 @@ const fetch_recipe = async () => {
     recipe.value = await getRecipe(id.value)
     //TODO: add new recipe to local store
   } catch (err) {
-    store.fetch_error.value = err
+    console.error(err)
   }
 }
 
@@ -49,7 +49,7 @@ onMounted(() => {
     <span
       class="recipe-instructions"
       v-for="(instruction, index) in recipe.instructions"
-      :key="instruction.index"
+      :key="index"
     >
       Крок {{ index + 1 }} <br />
       {{ instruction }}<br /><br

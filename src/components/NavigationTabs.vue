@@ -1,19 +1,24 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { type PropType, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+
+interface NavTab {
+  path: string
+  name: string
+}
 
 const props = defineProps({
   path_name: {
-    type: Array,
+    type: Array as PropType<Array<NavTab>>,
     required: true
   }
 })
 
-let active_Tab = ref(null)
+const active_Tab = ref<number | null>(null)
 
 const route = useRoute()
 
-// Update the selected Tab when the route.name changes
+// Update the selected NavTab when the route.name changes
 watch(
   () => route.name,
   () => {
@@ -21,7 +26,7 @@ watch(
   }
 )
 
-const select_Tab = (index) => {
+const select_Tab = (index: number) => {
   active_Tab.value = index
 }
 </script>
@@ -59,6 +64,7 @@ const select_Tab = (index) => {
   border-radius: 8px 8px 0 0;
   cursor: pointer;
 }
+
 .navigation-button:hover {
   opacity: 0.85;
 }

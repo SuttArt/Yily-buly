@@ -2,9 +2,10 @@
 import { onMounted, ref } from 'vue'
 import { useRecipesStore } from '@/stores/recipes-store.ts'
 import RecipeCard from '@/components/RecipeCard.vue'
+import type { Recipe } from '@/types/Recipe.ts'
 
 const store = useRecipesStore()
-const recipes = ref(null)
+const recipes = ref<Recipe[] | null>(null)
 
 onMounted(async () => {
   await store.fetchRecipes()

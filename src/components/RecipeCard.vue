@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import type { Recipe } from '@/types/Recipe.ts'
+import type { PropType } from 'vue'
+
 defineProps({
   recipe: {
-    type: Object,
+    type: Object as PropType<Recipe>,
     required: true
   }
 })
