@@ -1,6 +1,7 @@
 {
-  "name": "vue-project",
+  "name": "yily-buly",
   "version": "0.0.0",
+  "description": "A recipe book for you and your friends.",
   "private": true,
   "type": "module",
   "scripts": {
