@@ -1,0 +1,15 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle, rgba(128, 128, 128, 0.34) 1px, transparent 0);
+  background-size: 10px 10px;
+}
+
+#app {
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+  grid-template-rows: 10vh 10fr;
+  /*TODO: DELETE*/
+  height: 100vh;
+}
