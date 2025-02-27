@@ -12,4 +12,6 @@ body {
   grid-template-rows: 10vh 10fr;
   /*TODO: DELETE*/
   height: 100vh;
+  min-height: 100vh;
+  overflow-y: scroll;
 }
