@@ -61,6 +61,6 @@ const router = createRouter({
   }
 })
 
-export { routes };
+export { routes }
 
 export default router

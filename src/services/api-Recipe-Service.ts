@@ -8,7 +8,7 @@ export async function getRecipes(): Promise<Recipe[]> {
     throw new Error(`Recipes not Found! Response status: ${response.status}`)
   }
 
-  return await response.json() as Promise<Recipe[]>
+  return (await response.json()) as Promise<Recipe[]>
 }
 
 export async function getRecipe(id: string): Promise<Recipe> {
@@ -17,5 +17,5 @@ export async function getRecipe(id: string): Promise<Recipe> {
     throw new Error(`Recipe not Found! Response status: ${response.status}`)
   }
 
-  return await response.json() as Promise<Recipe>
+  return (await response.json()) as Promise<Recipe>
 }

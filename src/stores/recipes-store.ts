@@ -5,14 +5,14 @@ import type { Recipe } from '@/types/Recipe.ts'
 
 export const useRecipesStore = defineStore('recipes', () => {
   // state
-  const recipes = ref<Recipe[]>([]);
+  const recipes = ref<Recipe[]>([])
 
   // getters
 
   // actions
   async function fetchRecipes() {
     try {
-      recipes.value = await getRecipes() as Recipe[]
+      recipes.value = (await getRecipes()) as Recipe[]
     } catch (err) {
       console.error(err)
     }

@@ -50,7 +50,6 @@ describe('NavigationTabs', () => {
     expect(activeTab.exists()).toBe(true)
     expect(activeTab.text()).toBe(path_name[0].name)
 
-
     // Simulate navigation to '/search'
     await router.push(path_name[2].path)
     await wrapper.vm.$nextTick()
