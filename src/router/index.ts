@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '@/stores/user-store'
 import HomeView from '@/views/HomeView.vue'
 import NotFound from '@/views/NotFound.vue'
 
@@ -7,6 +8,7 @@ const myBook = () => import('@/views/BookView.vue')
 const search = () => import('@/views/SearchView.vue')
 const settings = () => import('@/views/SettingsView.vue')
 const recipeDetails = () => import('@/views/recipe/DetailsRecipeView.vue')
+const login = () => import('@/views/auth/LoginView.vue')
 
 const routes = [
   {
@@ -17,7 +19,8 @@ const routes = [
   {
     path: '/mybook',
     name: 'mybook',
-    component: myBook
+    component: myBook,
+    meta: { requiresAuth: true }
   },
   {
     path: '/search',
@@ -27,13 +30,19 @@ const routes = [
   {
     path: '/settings',
     name: 'settings',
-    component: settings
+    component: settings,
+    meta: { requiresAuth: true }
   },
   {
     path: '/recipe/:id',
     name: 'recipeDetails',
     props: true,
     component: recipeDetails
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: login
   },
   {
     path: '/:catchAll(.*)',
@@ -58,6 +67,16 @@ const router = createRouter({
     } else {
       return { top: 0 }
     }
+  }
+})
+
+router.beforeEach((to, _from, next) => {
+  const store = useUserStore()
+
+  if (to.meta.requiresAuth && !store.isAuthenticated()) {
+    next({ name: 'login', query: { redirect: to.fullPath } })
+  } else {
+    next()
   }
 })
 
