@@ -1,61 +1,101 @@
-# vue-project
+# yily-buly
 
-This template should help get you started developing with Vue 3 in Vite.
+A **recipe book** for you and your friends, built with **Vue 3**, **Vite**, and **Pinia**.
 
-## Recommended IDE Setup
+## 📌 Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- [WebStorm](https://www.jetbrains.com/webstorm/) (Recommended for Vue & TypeScript development).
+- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (disable Vetur if installed).
+- TypeScript support for `.vue` files is handled by [vue-tsc](https://github.com/vuejs/language-tools) for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
 
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+## ⚙️ Project Setup
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### 🚀 Start the Development Server
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+This runs the **Vite development server** with hot module replacement (HMR).
+
+### 🔨 Type-Check, Compile, and Minify for Production
 
 ```sh
 npm run build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+This script first **type-checks** the project and then builds it using **Vite**.
+
+### 👀 Preview the Production Build
+
+```sh
+npm run preview
+```
+
+This serves the built files using Vite’s preview mode.
+
+## 🧪 Testing
+
+### ✅ Run Unit Tests with [Vitest](https://vitest.dev/)
 
 ```sh
 npm run test:unit
 ```
 
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+### 🖥️ Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+
+#### Development Mode (Faster, Uses Dev Server)
 
 ```sh
 npm run test:e2e:dev
 ```
 
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
+#### Production Mode (Recommended for CI/CD)
 
 ```sh
 npm run build
 npm run test:e2e
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+## 📝 Code Quality
+
+### 🏗️ Type-Check the Code
+
+```sh
+npm run type-check
+```
+
+### 🔍 Lint and Auto-Fix Issues with [ESLint](https://eslint.org/)
 
 ```sh
 npm run lint
 ```
+
+Runs **ESLint** with automatic fixes.
+
+### ✨ Format Code with [Prettier](https://prettier.io/)
+
+```sh
+npm run format
+```
+
+Formats all files inside the `src/` directory.
+
+## 📡 Mock API Server with [json-server](https://github.com/typicode/json-server) 
+
+For development, you can start a **mock API server** using JSON Server:
+
+```sh
+npm run serve-mock-server
+```
+
+This serves `db.json` as a REST API for local testing.
+
+## 🔧 Customize Configuration
+
+See [Vite Configuration Reference](https://vite.dev/config/).
+
