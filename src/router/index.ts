@@ -8,41 +8,43 @@ const search = () => import('@/views/SearchView.vue')
 const settings = () => import('@/views/SettingsView.vue')
 const recipeDetails = () => import('@/views/recipe/DetailsRecipeView.vue')
 
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: HomeView
+  },
+  {
+    path: '/mybook',
+    name: 'mybook',
+    component: myBook
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: search
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: settings
+  },
+  {
+    path: '/recipe/:id',
+    name: 'recipeDetails',
+    props: true,
+    component: recipeDetails
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: 'NotFound',
+    component: NotFound
+  }
+]
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/mybook',
-      name: 'mybook',
-      component: myBook
-    },
-    {
-      path: '/search',
-      name: 'search',
-      component: search
-    },
-    {
-      path: '/settings',
-      name: 'settings',
-      component: settings
-    },
-    {
-      path: '/recipe/:id',
-      name: 'recipeDetails',
-      props: true,
-      component: recipeDetails
-    },
-    {
-      path: '/:catchAll(.*)',
-      name: 'NotFound',
-      component: NotFound
-    }
-  ],
+  routes: routes,
 
   // Do not work after overflow-y: scroll; in .css
   // TODO: Find a solution
@@ -58,5 +60,7 @@ const router = createRouter({
     }
   }
 })
+
+export { routes };
 
 export default router
