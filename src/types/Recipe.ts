@@ -7,6 +7,7 @@ interface Ingredient {
 
 interface Recipe {
   id: string
+  owner: string
   name: string
   description: string
   ingredients: Array<Ingredient>

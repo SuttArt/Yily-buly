@@ -4,6 +4,8 @@ import { useRecipesStore } from '@/stores/recipes-store.ts'
 import { getRecipe } from '@/services/api-Recipe-Service.ts'
 import type { Recipe } from '@/types/Recipe.ts'
 
+import RecipeShow from '@/components/RecipeShow.vue'
+
 const props = defineProps({
   id: {
     type: String,
@@ -41,20 +43,7 @@ onMounted(() => {
 
 <template>
   <div v-if="recipe" id="recipe-wrapper">
-    <span id="recipe-title">{{ recipe.name }}</span>
-    <span class="recipe-ingredients" v-for="ingredient in recipe.ingredients" :key="ingredient.name"
-      >{{ ingredient.name }}: {{ ingredient.quantity }} {{ ingredient.unit }}</span
-    >
-    <br />
-    <span
-      class="recipe-instructions"
-      v-for="(instruction, index) in recipe.instructions"
-      :key="index"
-    >
-      Крок {{ index + 1 }} <br />
-      {{ instruction }}<br /><br
-    /></span>
-    <br /><br />
+    <RecipeShow :recipe="recipe" />
   </div>
   <div v-else>Recipe is not found...</div>
 </template>
@@ -65,9 +54,5 @@ onMounted(() => {
   flex-direction: column;
   margin: 2vw;
   padding: 1vw;
-}
-
-#recipe-title {
-  align-self: center;
 }
 </style>
