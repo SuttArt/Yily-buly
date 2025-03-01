@@ -7,7 +7,6 @@ import NavigationTabs from '@/components/NavigationTabs.vue'
   <Navigation-tabs
     :path_name="[
       { path: 'home', name: 'Home' },
-      { path: 'search', name: 'Search' },
       { path: 'mybook', name: 'My Book' },
       { path: 'settings', name: 'Settings' }
     ]"

@@ -5,7 +5,6 @@ import NotFound from '@/views/NotFound.vue'
 
 // Lazy-loading (don't load this code until it's requested)
 const myBook = () => import('@/views/BookView.vue')
-const search = () => import('@/views/SearchView.vue')
 const settings = () => import('@/views/SettingsView.vue')
 const recipeDetails = () => import('@/views/recipe/DetailsRecipeView.vue')
 const login = () => import('@/views/auth/LoginView.vue')
@@ -21,11 +20,6 @@ const routes = [
     name: 'mybook',
     component: myBook,
     meta: { requiresAuth: true }
-  },
-  {
-    path: '/search',
-    name: 'search',
-    component: search
   },
   {
     path: '/settings',

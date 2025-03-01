@@ -22,7 +22,6 @@ describe('NavigationTabs', () => {
   const path_name = [
     { path: 'home', name: 'Home' },
     { path: 'mybook', name: 'My Book' },
-    { path: 'search', name: 'Search' },
     { path: 'settings', name: 'Settings' }
   ]
 
