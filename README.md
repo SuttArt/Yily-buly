@@ -38,6 +38,22 @@ npm run preview
 
 This serves the built files using Vite’s preview mode.
 
+## 🧪 Docker Setup
+
+### 🛠️ Build the Docker Image
+
+```sh
+docker build -t vue3-app .
+```
+
+### 🌐 Run the Docker Container
+
+```sh
+docker run -p 8080:80 vue3-app
+```
+
+This starts an Nginx server hosting the production build of your Vue 3 application.
+
 ## 🧪 Testing
 
 ### ✅ Run Unit Tests with [Vitest](https://vitest.dev/)
