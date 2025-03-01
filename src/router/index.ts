@@ -8,6 +8,7 @@ const myBook = () => import('@/views/BookView.vue')
 const settings = () => import('@/views/SettingsView.vue')
 const recipeDetails = () => import('@/views/recipe/DetailsRecipeView.vue')
 const login = () => import('@/views/auth/LoginView.vue')
+const createRecipe = () => import('@/views/recipe/CreateRecipe.vue')
 
 const routes = [
   {
@@ -32,6 +33,12 @@ const routes = [
     name: 'recipeDetails',
     props: true,
     component: recipeDetails
+  },
+  {
+    path: '/recipe/create',
+    name: 'recipeCreate',
+    component: createRecipe,
+    meta: { requiresAuth: true }
   },
   {
     path: '/login',

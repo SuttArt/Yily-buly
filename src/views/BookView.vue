@@ -21,7 +21,39 @@ onMounted(async () => {
 </script>
 
 <template>
+  <div id="control-elements">
+    <label for="search">Пошук:</label>
+    <input id="search" />
+
+    <RouterLink :to="{ name: 'recipeCreate' }">
+      <button class="control-button">Додати рецепт</button>
+    </RouterLink>
+  </div>
+  <hr />
   <RecipeCard v-for="recipe in recipes" :key="recipe.id" :recipe="recipe" />
 </template>
 
-<style scoped></style>
+<style scoped>
+#control-elements {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  gap: 2%;
+  margin: 2vw;
+  padding: 1vw;
+}
+
+.control-button {
+  background-color: #d6b9a0;
+  width: 10vw;
+  min-width: fit-content;
+  white-space: nowrap;
+  border: none;
+  border-radius: 8px 8px 8px 8px;
+  cursor: pointer;
+}
+
+.control-button:hover {
+  opacity: 0.85;
+}
+</style>
