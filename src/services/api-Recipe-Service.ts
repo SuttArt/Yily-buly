@@ -11,6 +11,15 @@ export async function getRecipes(): Promise<Recipe[]> {
   return (await response.json()) as Promise<Recipe[]>
 }
 
+export async function getUserRecipes(user: string): Promise<Recipe[]> {
+  const response = await fetch(`${API_BASE_URL}/recipes?owner=${user}`)
+  if (!response.ok) {
+    throw new Error(`Recipes not Found! Response status: ${response.status}`)
+  }
+
+  return (await response.json()) as Promise<Recipe[]>
+}
+
 export async function getRecipe(id: string): Promise<Recipe> {
   const response = await fetch(`${API_BASE_URL}/recipes/` + id)
   if (!response.ok) {

@@ -22,6 +22,7 @@ describe('RecipeCard', () => {
   it('renders the recipe details correctly', async () => {
     const recipe = {
       id: '1',
+      owner: 'Best User',
       name: 'Test Recipe',
       description: 'A delicious test recipe',
       ingredients: [
