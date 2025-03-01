@@ -21,6 +21,15 @@ onMounted(async () => {
 </script>
 
 <template>
+  <div id="control-elements">
+    <label for="search">Пошук:</label>
+    <input id="search" />
+
+    <RouterLink :to="{ name: 'recipeCreate' }">
+      <button class="control-button">Додати рецепт</button>
+    </RouterLink>
+  </div>
+  <hr />
   <RecipeCard v-for="recipe in recipes" :key="recipe.id" :recipe="recipe" />
 </template>
 
