@@ -1,35 +1,69 @@
 <script setup lang="ts">
-import { ref, type Ref } from 'vue'
+import { ref } from 'vue'
 import RecipeCreateForm from '@/components/RecipeCreateForm.vue'
+import { useUserStore } from '@/stores/user-store.ts'
+import type { Recipe } from '@/types/Recipe.ts'
+
+const userStore = useUserStore()
+
+const formData = ref<Recipe>({
+  id: '',
+  owner: '',
+  name: '',
+  description: '',
+  ingredients: [{ name: '', quantity: 0, unit: '' }], // Start with one empty ingredient
+  instructions: [''] // Start with one empty instruction
+})
 
 const createRecipe = async () => {
-  console.log('create recipe')
+  formData.value.id = '99'
+
+  if (userStore.user) {
+    // Ensures `user` exists before accessing `id`
+    formData.value.owner = userStore.user.id
+  } else {
+    console.warn('User is not logged in or data is not loaded yet.')
+  }
+
+  console.log('create recipe:', { ...formData.value })
 }
 
-const ingredients_count = ref(1)
-const instructions_count = ref(1)
+const addIngredient = () => {
+  formData.value.ingredients.push({ name: '', quantity: 0, unit: '' })
+}
+
+const addInstruction = () => {
+  formData.value.instructions.push('')
+}
 </script>
 
 <template>
   <form @submit.prevent="createRecipe" id="create-wrapper">
     <label for="recipe-name">Назва:</label>
-    <input id="recipe-name" name="name" type="text" />
+    <input id="recipe-name" v-model.trim="formData.name" type="text" @keydown.enter.prevent />
     <label for="recipe-description">Опис страви:</label>
-    <textarea id="recipe-description" name="description" rows="5" cols="1"></textarea>
+    <textarea
+      id="recipe-description"
+      v-model.trim="formData.description"
+      rows="5"
+      cols="1"
+    ></textarea>
     Інгредієнти:
-    <ol>
-      <li v-for="index in ingredients_count" :key="index">
-        <RecipeCreateForm type="ingredients" />
+    <ol class="recipe-list">
+      <li v-for="(_, index) in formData.ingredients" :key="index" class="recipe-ingredient">
+        <RecipeCreateForm v-model="formData.ingredients[index]" type="ingredients" />
       </li>
-      <button @click="ingredients_count++">+</button>
     </ol>
+    <button type="button" @click="addIngredient">Додати інгредієнт</button>
     Інструкції:
-    <ol>
-      <li v-for="index in instructions_count" :key="index">
-        <RecipeCreateForm type="instructions" />
+    <ol class="recipe-list">
+      <li v-for="(_, index) in formData.instructions" :key="index">
+        <RecipeCreateForm v-model="formData.instructions[index]" type="instructions" />
       </li>
-      <button @click="instructions_count++">+</button>
     </ol>
+    <button type="button" @click="addInstruction">Додати наступний крок</button>
+
+    <input type="submit" value="Створити рецепт" />
   </form>
 </template>
 
@@ -43,5 +77,20 @@ const instructions_count = ref(1)
 
 #recipe-description {
   resize: none;
+}
+
+/* Adds space between list items */
+.recipe-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Adjust as needed */
+}
+
+/* Add a border and padding around each ingredient item */
+.recipe-ingredient {
+  width: fit-content; /* Ensures the width is only as wide as its content */
+  border: 2px solid #ddd; /* Light gray border */
+  border-radius: 8px; /* Rounded corners */
+  padding: 10px; /* Space inside the box */
 }
 </style>

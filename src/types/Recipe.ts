@@ -18,4 +18,4 @@ interface Recipe {
 // Vue: An 'export default' must reference a value when 'verbatimModuleSyntax' is enabled, but 'Recipe' only refers to a type.
 // with export default Recipe;
 // use correct export:
-export type { Recipe }
+export type { Ingredient, Recipe }
