@@ -45,7 +45,8 @@ const updateInstruction = (event: Event) => {
       class="recipe-ingredients"
       :value="props.modelValue.name"
       type="text"
-      @input="updateIngredient('name', ($event.target as HTMLInputElement).value.trim())"
+      @input="updateIngredient('name', ($event.target as HTMLInputElement).value)"
+      @blur="updateIngredient('name', ($event.target as HTMLInputElement).value.trim())"
       @keydown.enter.prevent
     />
     <br />
@@ -76,7 +77,8 @@ const updateInstruction = (event: Event) => {
       class="recipe-unit"
       :value="props.modelValue.unit"
       type="text"
-      @input="updateIngredient('unit', ($event.target as HTMLInputElement).value.trim())"
+      @input="updateIngredient('unit', ($event.target as HTMLInputElement).value)"
+      @blur="updateIngredient('unit', ($event.target as HTMLInputElement).value.trim())"
       @keydown.enter.prevent
     />
   </template>

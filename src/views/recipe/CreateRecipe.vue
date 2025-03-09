@@ -2,7 +2,10 @@
 import { ref } from 'vue'
 import RecipeCreateForm from '@/components/RecipeCreateForm.vue'
 import { useUserStore } from '@/stores/user-store.ts'
+import { getLastRecipeId, postRecipe } from '@/services/api-Recipe-Service.ts'
 import type { Recipe } from '@/types/Recipe.ts'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const userStore = useUserStore()
 
@@ -16,16 +19,24 @@ const formData = ref<Recipe>({
 })
 
 const createRecipe = async () => {
-  formData.value.id = '99'
+  try {
+    const last_id = await getLastRecipeId()
+    const new_id: number = last_id !== null ? Number(last_id) + 1 : 1
 
-  if (userStore.user) {
-    // Ensures `user` exists before accessing `id`
-    formData.value.owner = userStore.user.id
-  } else {
-    console.warn('User is not logged in or data is not loaded yet.')
+    formData.value.id = String(new_id)
+    if (userStore.user) {
+      // Ensures `user` exists before accessing `id`
+      formData.value.owner = userStore.user.id
+    } else {
+      console.warn('User is not logged in or data is not loaded yet.')
+    }
+
+    await postRecipe(formData.value)
+
+    await router.push({ name: 'recipeDetails', params: { id: formData.value.id } })
+  } catch (err) {
+    console.error('Error posting recipe:', err)
   }
-
-  console.log('create recipe:', { ...formData.value })
 }
 
 const addIngredient = () => {
