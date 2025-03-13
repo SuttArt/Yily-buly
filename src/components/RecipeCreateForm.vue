@@ -12,6 +12,10 @@ const props = defineProps({
     type: String,
     required: true
   },
+  index: {
+    type: Number,
+    required: true
+  },
   modelValue: {
     type: [Object, String] as PropType<Ingredient | string>, // Supports both Ingredient (Object) and Instructions (String)
     required: true
@@ -42,6 +46,7 @@ const updateInstruction = (event: Event) => {
   <template v-if="props.type === template_type.ingredients && typeof props.modelValue === 'object'">
     <span class="recipe-label-span">Інгредієнт:</span>
     <input
+      :id="'ingredient_name_' + index"
       class="recipe-ingredients"
       :value="props.modelValue.name"
       type="text"
@@ -52,6 +57,7 @@ const updateInstruction = (event: Event) => {
     <br />
     <span class="recipe-label-span">Кількість:</span>
     <input
+      :id="'ingredient_quantity_' + index"
       class="recipe-quantity"
       :value="props.modelValue.quantity"
       type="number"
@@ -62,6 +68,7 @@ const updateInstruction = (event: Event) => {
     <br />
     <span class="recipe-label-span">Максимальна кількість:</span>
     <input
+      :id="'ingredient_quantity_max_' + index"
       class="recipe-quantity-max"
       :value="props.modelValue.quantity_max || ''"
       type="number"
@@ -74,6 +81,7 @@ const updateInstruction = (event: Event) => {
     <br />
     <span class="recipe-label-span">Одиниця:</span>
     <input
+      :id="'ingredient_unit_' + index"
       class="recipe-unit"
       :value="props.modelValue.unit"
       type="text"
@@ -88,6 +96,7 @@ const updateInstruction = (event: Event) => {
   >
     <span class="recipe-label-span">Крок:</span>
     <textarea
+      :id="'instruction_' + index"
       class="recipe-instructions"
       :value="props.modelValue"
       @input="updateInstruction"

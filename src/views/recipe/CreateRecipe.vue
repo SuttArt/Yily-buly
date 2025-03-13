@@ -62,14 +62,18 @@ const addInstruction = () => {
     Інгредієнти:
     <ol class="recipe-list">
       <li v-for="(_, index) in formData.ingredients" :key="index" class="recipe-ingredient">
-        <RecipeCreateForm v-model="formData.ingredients[index]" type="ingredients" />
+        <RecipeCreateForm v-model="formData.ingredients[index]" type="ingredients" :index="index" />
       </li>
     </ol>
     <button type="button" @click="addIngredient">Додати інгредієнт</button>
     Інструкції:
     <ol class="recipe-list">
       <li v-for="(_, index) in formData.instructions" :key="index">
-        <RecipeCreateForm v-model="formData.instructions[index]" type="instructions" />
+        <RecipeCreateForm
+          v-model="formData.instructions[index]"
+          type="instructions"
+          :index="index"
+        />
       </li>
     </ol>
     <button type="button" @click="addInstruction">Додати наступний крок</button>
