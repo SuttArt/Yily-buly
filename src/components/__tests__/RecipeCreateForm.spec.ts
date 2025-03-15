@@ -4,16 +4,25 @@ import { mount } from '@vue/test-utils'
 
 import RecipeCreateForm from '../RecipeCreateForm.vue'
 
-describe('RecipeCreateForm', () => {
+describe('RecipeCreateForm ingredients', () => {
+  const type = 'ingredients'
+  const ingredients = [{ name: '', quantity: 0, unit: '' }]
+  const index = 0
+
+  const wrapper = mount(RecipeCreateForm, {
+    props: { type, modelValue: ingredients[0], index }
+  })
+
+  const nameInput = wrapper.find<HTMLInputElement>('input[id="ingredient_name_' + index + '"]')
+  const quantityInput = wrapper.find<HTMLInputElement>(
+    'input[id="ingredient_quantity_' + index + '"]'
+  )
+  const quantityMaxInput = wrapper.find<HTMLInputElement>(
+    'input[id="ingredient_quantity_max_' + index + '"]'
+  )
+  const unitInput = wrapper.find<HTMLInputElement>('input[id="ingredient_unit_' + index + '"]')
+
   it('renders the recipe ingredients inputs correctly', async () => {
-    const type = 'ingredients'
-    const ingredients = [{ name: '', quantity: 0, unit: '' }]
-    const index = 0
-
-    const wrapper = mount(RecipeCreateForm, {
-      props: { type, modelValue: ingredients[0], index }
-    })
-
     // Wait for Vue to process updates
     await wrapper.vm.$nextTick()
 
@@ -24,14 +33,47 @@ describe('RecipeCreateForm', () => {
     expect(wrapper.text()).toContain('Одиниця:')
 
     // Check if the input fields exist
-    const nameInput = wrapper.find('input[id="ingredient_name_' + index + '"]')
-    const quantityInput = wrapper.find('input[id="ingredient_quantity_' + index + '"]')
-    const quantityMaxInput = wrapper.find('input[id="ingredient_quantity_max_' + index + '"]')
-    const unitInput = wrapper.find('input[id="ingredient_unit_' + index + '"]')
-
     expect(nameInput.exists()).toBe(true)
     expect(quantityInput.exists()).toBe(true)
     expect(quantityMaxInput.exists()).toBe(true)
     expect(unitInput.exists()).toBe(true)
+  })
+
+  it('ingredient and unit input trims the input on blur', async () => {
+    // Wait for Vue to process updates
+    await wrapper.vm.$nextTick()
+
+    await nameInput.setValue('   Flour   ')
+
+    // Manually trigger blur to apply trimming
+    await nameInput.trigger('blur')
+
+    // Wait for Vue to process updates
+    await wrapper.vm.$nextTick()
+
+    expect(nameInput.element.value).toBe('Flour')
+  })
+})
+
+describe('RecipeCreateForm instructions', () => {
+  const type = 'instructions'
+  const instructions = ['']
+  const index = 0
+
+  const wrapper = mount(RecipeCreateForm, {
+    props: { type, modelValue: instructions[0], index }
+  })
+
+  it('renders the recipe instructions inputs rendered correctly', async () => {
+    // Wait for Vue to process updates
+    await wrapper.vm.$nextTick()
+
+    // Check if the labels appears
+    expect(wrapper.text()).toContain('Крок:')
+
+    // Check if the input fields exist
+    const textAreaInput = wrapper.find('textarea[id="instruction_' + index + '"]')
+
+    expect(textAreaInput.exists()).toBe(true)
   })
 })
