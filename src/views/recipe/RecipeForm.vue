@@ -1,13 +1,26 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import RecipeCreateForm from '@/components/RecipeCreateForm.vue'
+import { computed, onMounted, ref } from 'vue'
+import RecipeFormFields from '@/components/RecipeFormFields.vue'
 import { useUserStore } from '@/stores/user-store.ts'
-import { getLastRecipeId, postRecipe } from '@/services/api-Recipe-Service.ts'
+import { useRecipesStore } from '@/stores/recipes-store.ts'
+import { getLastRecipeId, getRecipe, postRecipe, putRecipe } from '@/services/api-Recipe-Service.ts'
 import type { Recipe } from '@/types/Recipe.ts'
 import { useRouter } from 'vue-router'
-const router = useRouter()
 
+const router = useRouter()
 const userStore = useUserStore()
+const recipesStore = useRecipesStore()
+
+const props = defineProps<{ id?: string }>() // id is undefined in create mode
+
+// Determine mode
+const isEditMode = computed(() => !!props.id)
+
+onMounted(async () => {
+  if (isEditMode.value && props.id) {
+    formData.value = await getRecipe(props.id)
+  }
+})
 
 const errors = ref<{ [key: string]: string }>({})
 
@@ -22,10 +35,13 @@ const formData = ref<Recipe>({
 
 const createRecipe = async () => {
   try {
-    const last_id = await getLastRecipeId()
-    const new_id: number = last_id !== null ? Number(last_id) + 1 : 1
+    if (!isEditMode.value) {
+      const last_id = await getLastRecipeId()
+      const new_id: number = last_id !== null ? Number(last_id) + 1 : 1
 
-    formData.value.id = String(new_id)
+      formData.value.id = String(new_id)
+    }
+
     if (userStore.user) {
       // Ensures `user` exists before accessing `id`
       formData.value.owner = userStore.user.id
@@ -36,8 +52,13 @@ const createRecipe = async () => {
     // check form validation
     if (validateForm()) {
       // submit to backend
-      await postRecipe(formData.value)
+      if (isEditMode.value) {
+        await putRecipe(formData.value)
+      } else {
+        await postRecipe(formData.value)
+      }
 
+      recipesStore.updateRecipe(formData.value) // update local store
       await router.push({ name: 'recipeDetails', params: { id: formData.value.id } })
     } else {
       console.warn('Fix form errors', errors.value)
@@ -134,7 +155,7 @@ const remove = <T,>(arr: T[], index: number) => {
         <button type="button" class="control-button" @click="remove(formData.ingredients, index)">
           Видалити
         </button>
-        <RecipeCreateForm v-model="formData.ingredients[index]" type="ingredients" :index="index" />
+        <RecipeFormFields v-model="formData.ingredients[index]" type="ingredients" :index="index" />
       </li>
     </ol>
     <button type="button" class="control-button" @click="addIngredient">Додати інгредієнт</button>
@@ -147,7 +168,7 @@ const remove = <T,>(arr: T[], index: number) => {
         <button type="button" class="control-button" @click="remove(formData.instructions, index)">
           Видалити
         </button>
-        <RecipeCreateForm
+        <RecipeFormFields
           v-model="formData.instructions[index]"
           type="instructions"
           :index="index"

@@ -62,6 +62,7 @@ const updateInstruction = (event: Event) => {
       class="recipe-quantity"
       :value="props.modelValue.quantity"
       type="number"
+      step="any"
       min="0"
       @input="updateIngredient('quantity', parseFloat(($event.target as HTMLInputElement).value))"
       @keydown.enter.prevent

@@ -53,3 +53,16 @@ export async function postRecipe(recipe: Recipe): Promise<Recipe> {
 
   return (await response.json()) as Promise<Recipe>
 }
+
+export async function putRecipe(recipe: Recipe): Promise<Recipe> {
+  const response = await fetch(`${API_BASE_URL}/recipes/` + recipe.id, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(recipe)
+  })
+  if (!response.ok) {
+    throw new Error(`Failed to post recipe! Response status: ${response.status}`)
+  }
+
+  return (await response.json()) as Promise<Recipe>
+}

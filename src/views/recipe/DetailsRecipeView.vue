@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useRecipesStore } from '@/stores/recipes-store.ts'
+import { useUserStore } from '@/stores/user-store.ts'
 import { getRecipe } from '@/services/api-Recipe-Service.ts'
 import type { Recipe } from '@/types/Recipe.ts'
 
@@ -14,9 +15,14 @@ const props = defineProps({
 })
 
 const store = useRecipesStore()
+const userStore = useUserStore()
 const recipe = ref<Recipe | undefined>(undefined)
 
 const id = computed(() => props.id)
+const isOwner = computed(() => {
+  if (!userStore.user || !recipe.value) return false
+  return userStore.user.id === recipe.value.owner
+})
 
 const find_in_store = () => {
   recipe.value = store.recipes.find((r) => r.id === id.value)
@@ -42,6 +48,14 @@ onMounted(() => {
 </script>
 
 <template>
+  <div id="control-elements">
+    <RouterLink v-show="isOwner" :to="{ name: 'recipeEdit', params: { id } }">
+      <button class="control-button">Редагувати рецепт</button>
+    </RouterLink>
+  </div>
+
+  <hr />
+
   <div v-if="recipe" id="recipe-wrapper">
     <RecipeShow :recipe="recipe" />
   </div>

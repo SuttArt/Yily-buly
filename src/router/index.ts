@@ -8,7 +8,7 @@ const myBook = () => import('@/views/BookView.vue')
 const settings = () => import('@/views/SettingsView.vue')
 const recipeDetails = () => import('@/views/recipe/DetailsRecipeView.vue')
 const login = () => import('@/views/auth/LoginView.vue')
-const createRecipe = () => import('@/views/recipe/CreateRecipe.vue')
+const RecipeForm = () => import('@/views/recipe/RecipeForm.vue')
 
 const routes = [
   {
@@ -37,8 +37,14 @@ const routes = [
   {
     path: '/recipe/create',
     name: 'recipeCreate',
-    component: createRecipe,
+    component: RecipeForm,
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/recipe/edit/:id',
+    name: 'recipeEdit',
+    component: RecipeForm,
+    props: true
   },
   {
     path: '/login',

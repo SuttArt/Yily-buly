@@ -18,6 +18,15 @@ export const useRecipesStore = defineStore('recipes', () => {
     }
   }
 
+  function updateRecipe(updated: Recipe) {
+    const index = recipes.value.findIndex((r) => r.id === updated.id)
+    if (index !== -1) {
+      recipes.value[index] = updated
+    } else {
+      recipes.value.push(updated)
+    }
+  }
+
   async function fetchUserRecipes(user: string) {
     try {
       const user_recipes = (await getUserRecipes(user)) as Recipe[]
@@ -37,5 +46,5 @@ export const useRecipesStore = defineStore('recipes', () => {
     return recipes.value.filter((recipe) => recipe.owner === user)
   }
 
-  return { recipes, fetchRecipes, fetchUserRecipes, getRecipesByOwner }
+  return { recipes, fetchRecipes, updateRecipe, fetchUserRecipes, getRecipesByOwner }
 })

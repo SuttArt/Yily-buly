@@ -2,13 +2,13 @@ import { describe, it, expect } from 'vitest'
 
 import { mount } from '@vue/test-utils'
 
-import RecipeCreateForm from '../RecipeCreateForm.vue'
-describe('RecipeCreateForm ingredients', () => {
+import RecipeFormFields from '../RecipeFormFields.vue'
+describe('RecipeFormFields ingredients', () => {
   const type = 'ingredients'
   const ingredients = [{ name: '', quantity: 0, unit: '' }]
   const index = 0
 
-  const wrapper = mount(RecipeCreateForm, {
+  const wrapper = mount(RecipeFormFields, {
     props: { type, modelValue: ingredients[0], index }
   })
 
@@ -39,12 +39,12 @@ describe('RecipeCreateForm ingredients', () => {
   })
 })
 
-describe('RecipeCreateForm instructions', () => {
+describe('RecipeFormFields instructions', () => {
   const type = 'instructions'
   const instructions = ['']
   const index = 0
 
-  const wrapper = mount(RecipeCreateForm, {
+  const wrapper = mount(RecipeFormFields, {
     props: { type, modelValue: instructions[0], index }
   })
 
