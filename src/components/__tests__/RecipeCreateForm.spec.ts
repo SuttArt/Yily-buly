@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import RecipeCreateForm from '../RecipeCreateForm.vue'
-
+// TODO: Tests are not done. I was too lazy to figure it out
 describe('RecipeCreateForm ingredients', () => {
   const type = 'ingredients'
   const ingredients = [{ name: '', quantity: 0, unit: '' }]
