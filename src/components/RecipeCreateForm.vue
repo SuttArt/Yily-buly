@@ -53,6 +53,7 @@ const updateInstruction = (event: Event) => {
       @input="updateIngredient('name', ($event.target as HTMLInputElement).value)"
       @blur="updateIngredient('name', ($event.target as HTMLInputElement).value.trim())"
       @keydown.enter.prevent
+      required
     />
     <br />
     <span class="recipe-label-span">Кількість:</span>
@@ -64,6 +65,7 @@ const updateInstruction = (event: Event) => {
       min="0"
       @input="updateIngredient('quantity', parseFloat(($event.target as HTMLInputElement).value))"
       @keydown.enter.prevent
+      required
     />
     <br />
     <span class="recipe-label-span">Максимальна кількість:</span>
@@ -88,6 +90,7 @@ const updateInstruction = (event: Event) => {
       @input="updateIngredient('unit', ($event.target as HTMLInputElement).value)"
       @blur="updateIngredient('unit', ($event.target as HTMLInputElement).value.trim())"
       @keydown.enter.prevent
+      required
     />
   </template>
 
@@ -103,6 +106,7 @@ const updateInstruction = (event: Event) => {
       type="text"
       rows="5"
       cols="30"
+      required
     />
   </template>
 </template>
