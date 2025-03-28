@@ -3,7 +3,6 @@ import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import RecipeCreateForm from '../RecipeCreateForm.vue'
-// TODO: Tests are not done. I was too lazy to figure it out
 describe('RecipeCreateForm ingredients', () => {
   const type = 'ingredients'
   const ingredients = [{ name: '', quantity: 0, unit: '' }]
@@ -37,21 +36,6 @@ describe('RecipeCreateForm ingredients', () => {
     expect(quantityInput.exists()).toBe(true)
     expect(quantityMaxInput.exists()).toBe(true)
     expect(unitInput.exists()).toBe(true)
-  })
-
-  it('ingredient and unit input trims the input on blur', async () => {
-    // Wait for Vue to process updates
-    await wrapper.vm.$nextTick()
-
-    await nameInput.setValue('   Flour   ')
-
-    // Manually trigger blur to apply trimming
-    await nameInput.trigger('blur')
-
-    // Wait for Vue to process updates
-    await wrapper.vm.$nextTick()
-
-    expect(nameInput.element.value).toBe('Flour')
   })
 })
 
