@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { getRecipes, getUserRecipes } from '@/services/api-Recipe-Service.js'
+import { deleteRecipe, getRecipes, getUserRecipes } from '@/services/api-Recipe-Service.js'
 import type { Recipe } from '@/types/Recipe.ts'
 
 export const useRecipesStore = defineStore('recipes', () => {
@@ -46,5 +46,15 @@ export const useRecipesStore = defineStore('recipes', () => {
     return recipes.value.filter((recipe) => recipe.owner === user)
   }
 
-  return { recipes, fetchRecipes, updateRecipe, fetchUserRecipes, getRecipesByOwner }
+  async function removeRecipe(id: string): Promise<number> {
+    const status = await deleteRecipe(id)
+
+    if (status === 200) {
+      recipes.value = recipes.value.filter((r) => r.id !== id)
+    }
+
+    return status
+  }
+
+  return { recipes, fetchRecipes, updateRecipe, fetchUserRecipes, getRecipesByOwner, removeRecipe }
 })

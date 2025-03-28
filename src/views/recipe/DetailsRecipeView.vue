@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useRecipesStore } from '@/stores/recipes-store.ts'
 import { useUserStore } from '@/stores/user-store.ts'
 import { getRecipe } from '@/services/api-Recipe-Service.ts'
+import { useRouter } from 'vue-router'
 import type { Recipe } from '@/types/Recipe.ts'
 
 import RecipeShow from '@/components/RecipeShow.vue'
@@ -14,6 +15,7 @@ const props = defineProps({
   }
 })
 
+const router = useRouter()
 const store = useRecipesStore()
 const userStore = useUserStore()
 const recipe = ref<Recipe | undefined>(undefined)
@@ -37,6 +39,14 @@ const fetch_recipe = async () => {
   }
 }
 
+const removeRecipe = async (id: string) => {
+  const removeStatus = await store.removeRecipe(id)
+
+  if (removeStatus === 200) {
+    router.back()
+  }
+}
+
 onMounted(() => {
   // search in Pinia store
   find_in_store()
@@ -52,6 +62,9 @@ onMounted(() => {
     <RouterLink v-show="isOwner" :to="{ name: 'recipeEdit', params: { id } }">
       <button class="control-button">Редагувати рецепт</button>
     </RouterLink>
+    <button v-show="isOwner" class="control-button" @click="removeRecipe(id)">
+      Видалити рецепт
+    </button>
   </div>
 
   <hr />

@@ -61,8 +61,21 @@ export async function putRecipe(recipe: Recipe): Promise<Recipe> {
     body: JSON.stringify(recipe)
   })
   if (!response.ok) {
-    throw new Error(`Failed to post recipe! Response status: ${response.status}`)
+    throw new Error(`Failed to put recipe! Response status: ${response.status}`)
   }
 
   return (await response.json()) as Promise<Recipe>
+}
+
+export async function deleteRecipe(id: string): Promise<number> {
+  const response = await fetch(`${API_BASE_URL}/recipes/` + id, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' }
+  })
+
+  if (!response.ok) {
+    throw new Error(`Failed to delete recipe! Response status: ${response.status}`)
+  }
+
+  return response.status
 }
