@@ -7,7 +7,7 @@ import NotFound from '@/views/NotFound.vue'
 const myBook = () => import('@/views/BookView.vue')
 const settings = () => import('@/views/SettingsView.vue')
 const recipeDetails = () => import('@/views/recipe/DetailsRecipeView.vue')
-const login = () => import('@/views/auth/LoginView.vue')
+const login = () => import('@/views/LoginView.vue')
 const RecipeForm = () => import('@/views/recipe/RecipeForm.vue')
 
 const routes = [

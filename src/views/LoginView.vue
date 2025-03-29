@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useUserStore } from '@/stores/user-store'
+import { useUserStore } from '@/stores/user-store.ts'
 import { useRoute, useRouter } from 'vue-router'
 
 const id = ref('')

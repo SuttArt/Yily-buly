@@ -1,17 +1,22 @@
 <script setup lang="ts">
-import { type PropType, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { useUserStore } from '@/stores/user-store.ts'
 
-interface NavTab {
-  path: string
-  name: string
-}
+const userStore = useUserStore()
 
-const props = defineProps({
-  path_name: {
-    type: Array as PropType<Array<NavTab>>,
-    required: true
+const path_name = computed(() => {
+  const tabs = [
+    { path: 'home', name: 'Home' } // always shown
+  ]
+
+  if (userStore.isAuthenticated()) {
+    tabs.push({ path: 'mybook', name: 'My Book' }, { path: 'settings', name: 'Settings' })
+  } else {
+    tabs.push({ path: 'login', name: 'Login' })
   }
+
+  return tabs
 })
 
 const active_Tab = ref<number | null>(null)
@@ -22,7 +27,7 @@ const route = useRoute()
 watch(
   () => route.name,
   () => {
-    select_Tab(props.path_name.findIndex((item) => item.path === route.name))
+    select_Tab(path_name.value.findIndex((item) => item.path === route.name))
   }
 )
 

@@ -4,13 +4,7 @@ import NavigationTabs from '@/components/NavigationTabs.vue'
 </script>
 
 <template>
-  <Navigation-tabs
-    :path_name="[
-      { path: 'home', name: 'Home' },
-      { path: 'mybook', name: 'My Book' },
-      { path: 'settings', name: 'Settings' }
-    ]"
-  />
+  <Navigation-tabs />
   <div id="content-wrapper">
     <RouterView></RouterView>
   </div>
