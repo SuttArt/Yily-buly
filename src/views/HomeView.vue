@@ -1,20 +1,26 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import { useRecipesStore } from '@/stores/recipes-store.ts'
 import RecipeCard from '@/components/RecipeCard.vue'
-import type { Recipe } from '@/types/Recipe.ts'
+import SearchField from '@/components/SearchField.vue'
+import { useFilteredRecipes } from '@/composables/useFilteredRecipes'
 
 const store = useRecipesStore()
-const recipes = ref<Recipe[] | null>(null)
 
 onMounted(async () => {
   await store.fetchRecipes()
-  recipes.value = store.recipes
 })
+
+// Filtered list based on search input
+const { searchTerm, filteredRecipes } = useFilteredRecipes(() => store.recipes)
 </script>
 
 <template>
-  <RecipeCard v-for="recipe in recipes" :key="recipe.id" :recipe="recipe" />
+  <div id="control-elements">
+    <SearchField v-model="searchTerm" />
+  </div>
+  <hr />
+  <RecipeCard v-for="recipe in filteredRecipes" :key="recipe.id" :recipe="recipe" />
 </template>
 
 <style scoped></style>
